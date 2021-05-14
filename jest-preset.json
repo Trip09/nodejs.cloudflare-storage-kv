@@ -1,0 +1,47 @@
+{
+    "transform": {
+        "^.+\\.tsx?$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+        "src/**/*.{ts,tsx}",
+        "!src/**/*.d.ts",
+        "!src/**/Repositories/**/*.ts",
+        "!src/**/DependencyInjection/**/*.ts",
+        "!src/env*.ts",
+        "!src/**/index.ts"
+    ],
+    "coverageReporters": [
+        "text",
+        "lcov",
+        "html",
+        "json-summary"
+    ],
+    "setupFiles": [
+        "reflect-metadata"
+    ],
+    "testEnvironment": "node",
+    "coverageThreshold": {
+        "global": {
+            "branches": 100,
+            "functions": 100,
+            "lines": 100,
+            "statements": 100
+        }
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(spec))\\.(tsx?)$",
+    "testPathIgnorePatterns": [
+        "/node_modules/"
+    ],
+    "moduleFileExtensions": [
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+        "json"
+    ],
+    "globals": {
+        "ts-jest": {
+            "diagnostics": false
+        }
+    }
+}

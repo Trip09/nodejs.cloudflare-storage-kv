@@ -1,0 +1,73 @@
+image: node:12
+
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  CI_DEBUG_TRACE: "false"
+
+build_install:
+  stage: build
+  script:
+    - npm install
+    - npm run lint
+    - npm run build
+  cache:
+    policy: push
+    paths:
+      - node_modules/
+  artifacts:
+    paths:
+      - dist/
+
+testing_unit:
+  stage: test
+  script:
+    - npm run test
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+
+publish_npm_canary:
+  stage: deploy
+  before_script:
+    - git remote set-url origin https://$GIT_CI_USER:$GIT_CI_PASS@gitlab.com/$CI_PROJECT_PATH.git
+    - git fetch origin
+    - git checkout $CI_COMMIT_REF_NAME
+    - git branch --set-upstream-to=origin/$CI_COMMIT_REF_NAME
+    - git config --global user.name "gitlab-ci"
+    - git config --global user.email "albuquerque.joao.filipe@gmail.com"
+
+  script:
+#        name: Publish to NPM - Canary.
+    - npm run publish:package:canary
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+  except:
+    - master
+
+publish_npm_master:
+  stage: deploy
+  before_script:
+    - git remote set-url origin https://$GIT_CI_USER:$GIT_CI_PASS@gitlab.com/$CI_PROJECT_PATH.git
+    - git fetch origin
+    - git checkout $CI_COMMIT_REF_NAME
+    - git branch --set-upstream-to=origin/$CI_COMMIT_REF_NAME
+    - git config --global user.name "gitlab-ci"
+    - git config --global user.email "albuquerque.joao.filipe@gmail.com"
+
+  script:
+#         Publish to NPM
+    - npm run publish:package
+  cache:
+    policy: pull
+    paths:
+      - node_modules/
+  only:
+    refs:
+      - master

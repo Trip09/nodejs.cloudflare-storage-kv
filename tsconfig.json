@@ -1,0 +1,55 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    //    "noUnusedLocals": true,
+    //    "noImplicitThis": true,
+    //    "noUnusedParameters": true,
+    //    "noImplicitReturns": true,
+    //    "strictNullChecks": true,
+    "alwaysStrict": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "removeComments": false,
+    "skipLibCheck": false,
+    "typeRoots": [
+      "node_modules/@types",
+      "./src/types"
+    ],
+    "types": [
+      "node",
+      "jest",
+      "node-dependency-injection"
+    ],
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "src/types/*"
+      ]
+    }
+  },
+  "lib": [
+    "es6",
+    "dom",
+    "dom.iterable",
+    "scripthost",
+    "es7",
+    "es2017"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
